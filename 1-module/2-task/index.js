@@ -9,9 +9,19 @@ function print(text) {
  * Эту функцию нужно поменять так,
  * чтобы функция sayHello работала корректно
  */
+// Решение без регулярного выражения
 function isValid(name) {
-  // ваш код...
+  if (!name || name.includes(' ') || name.length < 4) {
+    return false;
+  }
+
+  return true;
 }
+/* Решение при помощи регулярного выражения
+function isValid(name) {
+  return typeof name === 'string' && /^\S{4,}$/.test(name);
+}
+*/
 
 function sayHello() {
   let userName = prompt('Введите ваше имя');

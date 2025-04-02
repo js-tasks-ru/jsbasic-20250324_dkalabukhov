@@ -10,17 +10,10 @@ function print(text) {
  * чтобы функция sayHello работала корректно
  */
 // Решение без регулярного выражения
-function isValid(name) {
-  if (!name || name.includes(' ') || name.length < 4) {
-    return false;
-  }
+const isValid = (name) => Boolean(name) && !name.includes(' ') && name.length >= 4;
 
-  return true;
-}
 /* Решение при помощи регулярного выражения
-function isValid(name) {
-  return typeof name === 'string' && /^\S{4,}$/.test(name);
-}
+const isValid = (name) => typeof name === 'string' && /^\S{4,}$/.test(name);
 */
 
 function sayHello() {

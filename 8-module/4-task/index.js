@@ -124,10 +124,10 @@ export default class Cart {
 
     this.#modal.open();
 
-    this.#modalBody = document.querySelector('.modal__body');
+    this.#modalBody = modalBody;
     this.#modalBody.addEventListener('click', (event) => this.#handleChangeProductQuantity(event))
 
-    this.#cartForm = document.querySelector('.cart-form');
+    this.#cartForm = this.#modalBody.querySelector('.cart-form');
     this.#cartForm.addEventListener('submit', (event) => this.#onSubmit(event));
   }
 

@@ -1,8 +1,7 @@
 import createElement from '../../assets/lib/create-element.js';
 
 export default class CartIcon {
-  #initialTopCoord = 0;
-  #initialTopCoordIsSet = false;
+  #initialTopCoord = null;
 
   constructor() {
     this.render();
@@ -58,9 +57,8 @@ export default class CartIcon {
       return;
     }
 
-    if (!this.#initialTopCoordIsSet) {
+    if (!this.#initialTopCoord) {
       this.#initialTopCoord = this.elem.getBoundingClientRect().top + window.scrollY;
-      this.#initialTopCoordIsSet = true;
      }
 
     const container = document.querySelector('.container');

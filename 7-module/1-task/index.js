@@ -13,11 +13,11 @@ export default class RibbonMenu {
   #arrowRight = null;
   #arrowLeft = null;
   #menuLinks = null;
-  #currentActiveCategory = '';
+  value = '';
 
   constructor(categories) {
     this.#categories = categories || this.#categories;
-    this.#currentActiveCategory = this.#categories.find(({ id }) => id === '')?.id || this.#currentActiveCategory;
+    this.value = this.#categories.find(({ id }) => id === '')?.id || this.value;
 
     this.#render();
   }
@@ -40,16 +40,16 @@ export default class RibbonMenu {
     }
 
     e.target.classList.add('ribbon__item_active');
-    const prevActive = this.elem.querySelector(`[data-id="${this.#currentActiveCategory}"]`);
+    const prevActive = this.elem.querySelector(`[data-id="${this.value}"]`);
 
     if (prevActive) {
       prevActive.classList.remove('ribbon__item_active');
     }
 
-    this.#currentActiveCategory = e.target.dataset.id;
+    this.value = e.target.dataset.id;
 
     this.elem.dispatchEvent(new CustomEvent('ribbon-select', {
-      detail: this.#currentActiveCategory,
+      detail: this.value,
       bubbles: true,
     }));
   }

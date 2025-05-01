@@ -3,7 +3,7 @@ import createElement from '../../assets/lib/create-element.js';
 export default class StepSlider {
   elem = null;
   #steps = 5;
-  #value = 0;
+  value = 0;
   #sliderProgress = null;
   #sliderThumb = null;
   #sliderThumbValue = null;
@@ -12,7 +12,7 @@ export default class StepSlider {
 
   constructor({ steps, value = 0 }) {
     this.#steps = steps ?? this.#steps;
-    this.#value = value ?? this.#value;
+    this.value = value ?? this.value;
     this.#segments = this.#steps - 1;
 
     this.#render();
@@ -62,7 +62,7 @@ export default class StepSlider {
   #dispatchSliderChangeEvent() {
     this.elem.dispatchEvent(
       new CustomEvent('slider-change', {
-        detail: this.#value,
+        detail: this.value,
         bubbles: true
       })
     );
@@ -71,29 +71,29 @@ export default class StepSlider {
   #updateActiveStep() {
     const prevActiveStep = this.#sliderSteps.querySelector('.slider__step-active');
     prevActiveStep.classList.remove('slider__step-active');
-    const currentActiveStep = this.#sliderSteps.children[this.#value];
+    const currentActiveStep = this.#sliderSteps.children[this.value];
     currentActiveStep.classList.add('slider__step-active');
   }
 
   #updateSliderFromValue() {
-    const valueInPercents = (this.#value / this.#segments) * 100;
+    const valueInPercents = (this.value / this.#segments) * 100;
 
     this.#sliderThumb.style.left = `${valueInPercents}%`;
     this.#sliderProgress.style.width = `${valueInPercents}%`;
-    this.#sliderThumbValue.textContent = this.#value;
+    this.#sliderThumbValue.textContent = this.value;
   }
 
   #updateSliderFromPosition(leftPercents, leftRelative) {
     this.#sliderThumb.style.left = `${leftPercents}%`;
     this.#sliderProgress.style.width = `${leftPercents}%`;
-    this.#value = Math.round(leftRelative * this.#segments);
-    this.#sliderThumbValue.textContent = this.#value;
+    this.value = Math.round(leftRelative * this.#segments);
+    this.#sliderThumbValue.textContent = this.value;
   }
 
   #onSliderClick = (event) => {
     const leftRelative = this.#getRelativePosition(event);
     const approximateValue = leftRelative * this.#segments;
-    this.#value = Math.round(approximateValue);
+    this.value = Math.round(approximateValue);
 
     this.#updateSliderFromValue();
     this.#updateActiveStep();
@@ -121,7 +121,7 @@ export default class StepSlider {
     return Array(this.#steps)
       .fill()
       .map((_, index) =>
-        `<span${index === this.#value ? ' class="slider__step-active"' : ''}></span>`
+        `<span${index === this.value ? ' class="slider__step-active"' : ''}></span>`
       )
       .join('');
   }
@@ -130,7 +130,7 @@ export default class StepSlider {
     return `
       <div class="slider">
         <div class="slider__thumb">
-          <span class="slider__value">${this.#value}</span>
+          <span class="slider__value">${this.value}</span>
         </div>
         <div class="slider__progress"></div>
         <div class="slider__steps">
